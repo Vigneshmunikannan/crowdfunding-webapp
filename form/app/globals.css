@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---- Home page animated background ---- */
+@keyframes home-gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes home-mesh-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06) translate(2%, -1%);
+  }
+}
+
+@keyframes home-blob-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(12%, -8%) scale(1.12);
+  }
+  66% {
+    transform: translate(-6%, 10%) scale(0.95);
+  }
+}
+
+@keyframes home-blob-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-14%, 6%) scale(1.08);
+  }
+}
+
+@keyframes home-blob-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(8%, 12%) scale(1.15);
+  }
+  80% {
+    transform: translate(-10%, -4%) scale(0.92);
+  }
+}
+
+@keyframes home-grid-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 48px 48px;
+  }
+}
+
+.home-bg-base {
+  background: linear-gradient(
+    125deg,
+    #09090b 0%,
+    #0c1917 25%,
+    #0f172a 50%,
+    #0c1917 75%,
+    #09090b 100%
+  );
+  background-size: 280% 280%;
+  animation: home-gradient-shift 22s ease-in-out infinite;
+}
+
+.home-bg-mesh {
+  background: radial-gradient(
+      ellipse 90% 70% at 50% -10%,
+      rgba(45, 212, 191, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 100% 60%,
+      rgba(52, 211, 153, 0.12),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 0% 80%,
+      rgba(56, 189, 248, 0.08),
+      transparent 50%
+    );
+  animation: home-mesh-pulse 16s ease-in-out infinite;
+}
+
+.home-bg-blob {
+  will-change: transform;
+}
+
+.home-bg-blob--a {
+  animation: home-blob-a 19s ease-in-out infinite;
+}
+
+.home-bg-blob--b {
+  animation: home-blob-b 23s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.home-bg-blob--c {
+  animation: home-blob-c 21s ease-in-out infinite;
+  animation-delay: -9s;
+}
+
+.home-bg-grid {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: home-grid-drift 48s linear infinite;
+  mask-image: radial-gradient(
+    ellipse 75% 65% at 50% 45%,
+    black 20%,
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-bg-base,
+  .home-bg-mesh,
+  .home-bg-blob--a,
+  .home-bg-blob--b,
+  .home-bg-blob--c,
+  .home-bg-grid {
+    animation: none !important;
+  }
+
+  .home-bg-base {
+    background-size: 100% 100%;
+  }
+}
